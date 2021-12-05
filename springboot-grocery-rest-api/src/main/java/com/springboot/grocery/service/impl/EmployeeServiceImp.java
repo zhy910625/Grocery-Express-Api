@@ -1,12 +1,10 @@
 package com.springboot.grocery.service.impl;
 
-import com.springboot.grocery.entity.Drone;
 import com.springboot.grocery.entity.Employee;
 import com.springboot.grocery.entity.Store;
 import com.springboot.grocery.exception.GroceryAPIException;
 import com.springboot.grocery.exception.ResourceNotFoundException;
 import com.springboot.grocery.payload.EmployeeDto;
-
 import com.springboot.grocery.repository.EmployeeRepository;
 import com.springboot.grocery.repository.StoreRepository;
 import com.springboot.grocery.service.EmployeeService;
@@ -58,6 +56,7 @@ public class EmployeeServiceImp implements EmployeeService {
         if(!employee.getStore().getId().equals(store.getId())){
             throw new GroceryAPIException(HttpStatus.BAD_REQUEST, "Employee does not belongs to store");
         }
+        employee.setExperience(employeeRequest.getExperience());
 
         employee.setIs_free(employeeRequest.getIs_free());
 
@@ -67,6 +66,7 @@ public class EmployeeServiceImp implements EmployeeService {
 
 
     private EmployeeDto mapToDTO(Employee employee){
+
         EmployeeDto employeeDto = new EmployeeDto();
         employeeDto.setId(employee.getId());
         employeeDto.setFirst_name(employee.getFirst_name());
